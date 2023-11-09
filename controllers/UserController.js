@@ -44,4 +44,26 @@ const register = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { register };
+const login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (user && (await user.verifyPassword(password))) {
+    res.json({
+      user: {
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        image: user.image,
+      },
+      token: jwt.generate(user._id),
+    });
+  } else {
+    res
+      .status(401)
+      .json({ message: "Invalid Email or Password", status: "KO" });
+  }
+});
+module.exports = { register, login };
