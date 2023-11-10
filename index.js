@@ -2,6 +2,7 @@ const express = require('express')
 const env = require("dotenv")
 const db = require("./config/db")
 const userRouter = require("./router/UserRouter")
+const chatRouter = require('./router/ChatRouter')
 env.config()
 const APP_ENV = process.env.APP_ENV
 
@@ -16,5 +17,6 @@ app.all('/', (req, res) => {
 })
 
 app.use("/api/users", userRouter);
+app.use("/api/chats", chatRouter);
 
 app.listen(process.env.PORT || 5000)
