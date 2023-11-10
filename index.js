@@ -15,6 +15,6 @@ app.all('/', (req, res) => {
     res.send(APP_ENV + " : Express app template!")
 })
 
-app.use("/api/user", userRouter);
+app.use("/api/users", userRouter);
 
 app.listen(process.env.PORT || 5000)
