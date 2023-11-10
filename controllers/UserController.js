@@ -72,11 +72,25 @@ const login = asyncHandler(async (req, res) => {
 const getAll = asyncHandler(async (req, res) => {
 
   try {
-    const users = await User.find(); // Use the `find()` method without conditions to get all users
+    const users = await User.find();
     res.status(200).json({users});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-module.exports = { register, login, getAll };
+const getProfile = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.userId
+    const user = await User.findById(userId);
+    if (user) {
+      res.status(200).json({user});
+    } else {
+      res.status(404).json({ message: "The user not found!", status: "KO" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message, status: "KO" });
+  }
+});
+
+module.exports = { register, login, getAll, getProfile };
