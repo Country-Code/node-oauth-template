@@ -68,4 +68,15 @@ const login = asyncHandler(async (req, res) => {
       .json({ message: "Invalid Email or Password", status: "KO" });
   }
 });
-module.exports = { register, login };
+
+const getAll = asyncHandler(async (req, res) => {
+
+  try {
+    const users = await User.find(); // Use the `find()` method without conditions to get all users
+    res.status(200).json({users});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+module.exports = { register, login, getAll };
