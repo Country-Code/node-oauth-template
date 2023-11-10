@@ -27,11 +27,13 @@ const register = asyncHandler(async (req, res) => {
 
     if (newUser) {
       res.status(201).json({
-        _id: newUser._id,
-        fullname: newUser.fullname,
-        email: newUser.email,
-        isAdmin: newUser.isAdmin,
-        image: newUser.image,
+        user: {
+          _id: newUser._id,
+          fullname: newUser.fullname,
+          email: newUser.email,
+          isAdmin: newUser.isAdmin,
+          image: newUser.image,
+        },
         token: jwt.generate(newUser._id),
       });
     } else {
