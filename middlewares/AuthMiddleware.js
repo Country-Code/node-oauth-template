@@ -11,21 +11,15 @@ const getUserId = (authorization) => {
   } else {
     user.error.status = 400;
     user.error.message = "Invalid Bearer authorization.";
-    console.log("user : ", user)
     return user;
   }
 
   if (token === undefined) {
     user.error.status = 401;
     user.error.message = "Access denied. No token provided.";
-    console.log("user : ", user)
     return user;
   } else {
     jwt.verify(token, process.env.JWT_SECRET, (err, data) => {
-      console.log("jwt.verify")
-      console.log("token : ", token)
-      console.log("data : ", data)
-      console.log("err : ", err)
       if (err) {
         user.error.status = 403;
         user.error.message = "Invalid token.";
@@ -34,7 +28,6 @@ const getUserId = (authorization) => {
         user.error = null
       }
     });
-    console.log("user : ", user)
     return user;
   }
 
